@@ -7,21 +7,53 @@ export default new Vuex.Store({
   state: {
     strict: true,
     name: "Yee-Ctrl",
+    selectedGroupId: "",
     savedBulbGroups: [
       {
-        ip: "123.123",
+        id: "1",
+        ips: ["123.123", "222.333.abc", "748.992.099"],
         name: "My Bulb 1"
       },
       {
-        ip: "124.124",
+        id: "2",
+        ips: ["124.124"],
         name: "My Bulb 2"
       },
       {
-        ip: "125.125",
+        id: "3",
+        ips: ["125.125", "009.sui.kkj"],
         name: "My Bulb 3"
       },
-    ]
+    ],
+    foundBulbs: [
+      {
+        ip: "1",
+      },
+      {
+        ip: "2",
+      },
+      {
+        ip: "3",
+      },
+    ],
+    toAddGroups: [],
+    showSearch: false
   },
-  getters: {},
-  mutations: {}
+  getters: {
+    selectedGroup(state) {
+      return state.savedBulbGroups.find(
+          group => group.id === state.selectedGroupId);
+    }
+  },
+  mutations: {
+    selectGroup(state, id) {
+      state.selectedGroupId = id;
+    },
+    showSearch(state) {
+      state.showSearch = true;
+    },
+    hideSearch(state) {
+      state.showSearch = false;
+    }
+  }
 })

@@ -1,10 +1,19 @@
 <template>
-  <div class="selected-group-settings"></div>
+  <div class="selected-group-settings">
+    <div v-if="selectedGroup">
+      {{selectedGroup.name}}
+    </div>
+  </div>
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
+
   export default {
-    name: "SelectedGroupSettings"
+    name: "SelectedGroupSettings",
+    computed: {
+      ...mapGetters(["selectedGroup"])
+    }
   }
 </script>
 

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div class="horizontal-wrapper">
+      <Search></Search>
       <SavedGroupsList></SavedGroupsList>
       <SelectedGroupSettings></SelectedGroupSettings>
     </div>
@@ -11,10 +12,11 @@
   import {mapState} from 'vuex';
   import SavedGroupsList from "./components/saved-groups/SavedGroupsList";
   import SelectedGroupSettings from "./components/selected-group-settings/SelectedGroupSettings";
+  import Search from "./components/search/Search";
 
   export default {
     name: 'App',
-    components: {SelectedGroupSettings, SavedGroupsList},
+    components: {Search, SelectedGroupSettings, SavedGroupsList},
     computed: {
       ...mapState([
         'name'
