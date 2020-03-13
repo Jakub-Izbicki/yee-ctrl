@@ -1,19 +1,15 @@
 <template>
   <div class="search-list-wrapper">
-    <div class="search-list">
-      <tr class="search-list-item"
-          :key="foundBulb.ip" v-for="foundBulb in this.foundBulbs">
-        {{foundBulb.ip}}
-      </tr>
-    </div>
+    <select class="search-list" size="2">
+      <option class="search-list-item"
+          :key="device.id" v-for="device in this.foundDevices">
+        {{device.host}}
+      </option>
+    </select>
     <div class="add-button-wrapper">
       <button>Add selected</button>
     </div>
     <div class="saved-groups-list">
-      <tr class="saved-group"
-          :key="foundBulb.ip" v-for="foundBulb in this.foundBulbs">
-        {{foundBulb.ip}}
-      </tr>
     </div>
   </div>
 </template>
@@ -24,7 +20,7 @@
   export default {
     name: "SearchList",
     computed: {
-      ...mapState(["foundBulbs"])
+      ...mapState(["foundDevices"])
     }
   }
 </script>
@@ -58,8 +54,5 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
-
-  .saved-group {
   }
 </style>

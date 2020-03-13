@@ -7,7 +7,7 @@
           <button @click="hideSearch">&times;</button>
         </div>
         <div>
-          <button class="refresh-button-wrapper" @click="searchForBulbs">Refresh</button>
+          <button class="refresh-button-wrapper" @click="searchForDevices">Refresh</button>
         </div>
         <SearchList></SearchList>
       </div>
@@ -23,6 +23,11 @@
   export default {
     name: "Search",
     components: {SearchList},
+    data() {
+      return {
+        discoveryService: undefined
+      };
+    },
     computed: {
       ...mapState(["showSearch"])
     },
@@ -30,27 +35,24 @@
       hideSearch() {
         this.$store.commit("hideSearch");
       },
-      searchForBulbs() {
-        let d = new Discovery();
-        d.on('started', () => {
-          console.log('** Discovery Started **')
-        })
+      searchForDevices() {
+        if (this.discoveryService !== undefined) {
+          this.discoveryService.close();
+        }
 
-        d.on("didDiscoverDevice", (msg) => {
-          console.log(msg);
-        })
+        this.discoveryService = new Discovery();
 
-        d.search();
+        this.discoveryService.on("onDeviceDiscovered", (device) => {
+          this.$store.commit("addFoundDevice", device);
+        });
+
+        this.discoveryService.search();
       }
     }
   }
 </script>
 
 <style scoped>
-  .search {
-
-  }
-
   .search-mask {
     width: 100%;
     height: 100%;

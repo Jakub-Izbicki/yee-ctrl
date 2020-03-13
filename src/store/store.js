@@ -25,17 +25,7 @@ export default new Vuex.Store({
         name: "My Bulb 3"
       },
     ],
-    foundBulbs: [
-      {
-        ip: "1",
-      },
-      {
-        ip: "2",
-      },
-      {
-        ip: "3",
-      },
-    ],
+    foundDevices: [],
     toAddGroups: [],
     showSearch: false
   },
@@ -54,6 +44,16 @@ export default new Vuex.Store({
     },
     hideSearch(state) {
       state.showSearch = false;
+    },
+    addFoundDevice(state, newDevice) {
+      if (state.foundDevices.find(device => device.ip === newDevice.ip)
+          === undefined) {
+        console.log("Adding new device");
+        console.log(newDevice);
+        state.foundDevices.push(newDevice);
+
+        console.log(state.foundDevices);
+      }
     }
   }
 })
