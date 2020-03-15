@@ -1,26 +1,20 @@
 <template>
   <div class="selected-group-settings">
-    <div v-if="selectedGroup">
-      {{selectedGroup.name}}
-    </div>
   </div>
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
-
   export default {
     name: "SelectedGroupSettings",
-    computed: {
-      ...mapGetters(["selectedGroup"])
-    }
+    computed: {}
   }
 </script>
 
 <style scoped>
   .selected-group-settings {
     flex-grow: 3;
+    flex-basis: 0;
 
-    background: rgb(244, 219, 144);
+    background: rgb(82, 80, 87);
   }
 </style>

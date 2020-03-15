@@ -1,13 +1,13 @@
 <template>
-  <div v-if="showSearch" class="search">
-    <div class="search-mask">
-      <div class="search-window">
-        <div class="search-window-header">
+  <div v-if="showSearch">
+    <div class="mask">
+      <div class="window">
+        <div class="header">
           <div>Search</div>
           <button @click="hideSearch">&times;</button>
         </div>
-        <div>
-          <button class="refresh-button-wrapper" @click="searchForDevices">Refresh</button>
+        <div class="refresh-button-wrapper">
+          <button @click="searchForDevices">Refresh</button>
         </div>
         <SearchList></SearchList>
       </div>
@@ -53,7 +53,7 @@
 </script>
 
 <style scoped>
-  .search-mask {
+  .mask {
     width: 100%;
     height: 100%;
     top: 0;
@@ -67,7 +67,7 @@
     background: rgba(28, 28, 28, 0.77);
   }
 
-  .search-window {
+  .window {
     width: 90%;
     height: 90%;
     top: 50%;
@@ -78,15 +78,18 @@
     display: flex;
     flex-direction: column;
 
-    background: antiquewhite;
+    background:  rgb(82, 80, 87);
   }
 
-  .search-window-header {
+  .header {
     display: flex;
     flex-direction: row;
   }
 
   .refresh-button-wrapper {
+    flex-grow: 1;
+    flex-basis: 0;
+
     display: flex;
     flex-direction: row;
   }

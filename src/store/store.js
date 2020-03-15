@@ -8,32 +8,13 @@ export default new Vuex.Store({
     strict: true,
     name: "Yee-Ctrl",
     selectedGroupId: "",
-    savedBulbGroups: [
-      {
-        id: "1",
-        ips: ["123.123", "222.333.abc", "748.992.099"],
-        name: "My Bulb 1"
-      },
-      {
-        id: "2",
-        ips: ["124.124"],
-        name: "My Bulb 2"
-      },
-      {
-        id: "3",
-        ips: ["125.125", "009.sui.kkj"],
-        name: "My Bulb 3"
-      },
-    ],
     foundDevices: [],
+    savedDeviceGroups: [],
     toAddGroups: [],
-    showSearch: false
-  },
-  getters: {
-    selectedGroup(state) {
-      return state.savedBulbGroups.find(
-          group => group.id === state.selectedGroupId);
-    }
+    showSearch: false,
+    showRenameGroup: false,
+    groupIdToRename: "",
+    groupNameToRename: ""
   },
   mutations: {
     selectGroup(state, id) {
@@ -46,14 +27,41 @@ export default new Vuex.Store({
       state.showSearch = false;
     },
     addFoundDevice(state, newDevice) {
-      if (state.foundDevices.find(device => device.ip === newDevice.ip)
-          === undefined) {
+      if (state.foundDevices
+      .find(device => device.ip === newDevice.ip) === undefined) {
         console.log("Adding new device");
         console.log(newDevice);
         state.foundDevices.push(newDevice);
-
-        console.log(state.foundDevices);
       }
+    },
+    saveNewDeviceGroup(state, newGroup) {
+      state.savedDeviceGroups.push(newGroup);
+    },
+    deleteDeviceGroup(state, id) {
+      state.savedDeviceGroups = state.savedDeviceGroups.filter(group => {
+        return group.id !== id;
+      });
+    },
+    showRenameGroup(state, id) {
+      state.groupIdToRename = id;
+      state.groupNameToRename = state.savedDeviceGroups.find(savedGroup => {
+        return savedGroup.id === state.groupIdToRename;
+      }).name;
+      state.showRenameGroup = true;
+    },
+    hideRenameGroup(state) {
+      state.showRenameGroup = false;
+    },
+    renameGroup(state, data) {
+      // state.savedDeviceGroups.find(savedDevice => {
+      //   return savedDevice.id === data.id;
+      // }).name = data.newName;
+
+      state.savedDeviceGroups = state.savedDeviceGroups.map(savedDevice => {
+        return savedDevice.id === data.id
+            ? {...savedDevice, name: data.newName}
+            : savedDevice;
+      })
     }
   }
 })

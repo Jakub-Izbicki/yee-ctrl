@@ -1,19 +1,21 @@
 <template>
   <div class="saved-groups-list">
-    <div class="buttons-wrapper">
-      <button class="search-button" @click="showSearch">Search</button>
-    </div>
-    <div class="list-wrapper">
-      <div class="list-item"
-           v-bind:class="{'selected-item': isSelected(group.id)}"
-           :key="group.id" v-for="group in this.savedBulbGroups"
-           @click="selectGroup(group.id)">
-        <div class="list-item-group-name">
-          <b>{{group.name}}</b>
+    <div class="saved-group"
+         :key="group.id" v-for="group in savedDeviceGroups">
+      <div class="saved-group-title">
+        <div>
+          {{group.name}}
         </div>
-        <div class="list-item-bulbs-list"
-             :key="bulb" v-for="bulb in group.ips">
-          {{bulb}}
+        <div>
+          <i class="fas fa-pencil-alt button-edit-name"
+             @click="showRenameGroup(group.id)"></i>
+          <i class="fas fa-trash-alt button-remove"
+             @click="deleteGroup(group.id)"></i>
+        </div>
+      </div>
+      <div>
+        <div :key="device.id" v-for="device in group.devices">
+          {{device.host}}
         </div>
       </div>
     </div>
@@ -21,13 +23,12 @@
 </template>
 
 <script>
-  import {mapState, mapGetters} from 'vuex'
+  import {mapState} from 'vuex'
 
   export default {
     name: "SavedGroupsList",
     computed: {
-      ...mapState(["savedBulbGroups"]),
-      ...mapGetters(["selectedGroup"])
+      ...mapState(["savedDeviceGroups"])
     },
     methods: {
       showSearch() {
@@ -38,6 +39,12 @@
       },
       selectGroup(ip) {
         this.$store.commit("selectGroup", ip);
+      },
+      deleteGroup(id) {
+        this.$store.commit("deleteDeviceGroup", id);
+      },
+      showRenameGroup(id) {
+        this.$store.commit("showRenameGroup", id);
       }
     }
   }
@@ -45,53 +52,18 @@
 
 <style scoped>
   .saved-groups-list {
-    flex-grow: 1;
-
-    display: flex;
-    flex-direction: column;
-
-    background: rgb(244, 181, 101);
+    width: 100%;
+    height: 100%;
+    overflow: auto;
   }
 
-  .buttons-wrapper {
-    margin: 10px;
-    flex-grow: 1;
+  .saved-group:hover {
+    background: #656567;
+  }
 
+  .saved-group-title {
     display: flex;
     flex-direction: row;
-
-    background: antiquewhite;
-  }
-
-  .list-wrapper {
-    margin: 10px;
-    flex-grow: 6;
-
-    display: flex;
-    flex-direction: column;
-
-    background: antiquewhite;
-  }
-
-  .search-button {
-  }
-
-  .list-item {
-    padding: 5px;
-
-    cursor: pointer;
-    transition: background 0.1s;
-  }
-
-  .list-item:hover {
-    background: cadetblue;
-  }
-
-  .selected-item {
-    background: aqua;
-  }
-
-  .selected-item:hover {
-    background: aqua;
+    justify-content: space-between;
   }
 </style>

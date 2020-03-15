@@ -2,21 +2,24 @@
   <div id="app">
     <div class="horizontal-wrapper">
       <Search></Search>
-      <SavedGroupsList></SavedGroupsList>
+      <RenameGroup></RenameGroup>
+      <SavedGroups></SavedGroups>
       <SelectedGroupSettings></SelectedGroupSettings>
     </div>
   </div>
 </template>
 
 <script>
+  import "./assets/css/main.css"
   import {mapState} from 'vuex';
-  import SavedGroupsList from "./components/saved-groups/SavedGroupsList";
   import SelectedGroupSettings from "./components/selected-group-settings/SelectedGroupSettings";
   import Search from "./components/search/Search";
+  import SavedGroups from "./components/saved-groups/SavedGroups";
+  import RenameGroup from "./components/saved-groups/rename-group/RenameGroup";
 
   export default {
     name: 'App',
-    components: {Search, SelectedGroupSettings, SavedGroupsList},
+    components: {RenameGroup, SavedGroups, Search, SelectedGroupSettings},
     computed: {
       ...mapState([
         'name'
@@ -43,7 +46,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    color: #f2f2f4;
   }
 
   .horizontal-wrapper {
