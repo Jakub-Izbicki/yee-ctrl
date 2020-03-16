@@ -1,8 +1,8 @@
 <template>
   <div id="app" class="h-full flex flex-row text-primary">
     <RenameGroup></RenameGroup>
-    <Search></Search>
     <SavedGroups></SavedGroups>
+    <Search></Search>
     <SelectedGroupSettings></SelectedGroupSettings>
   </div>
 </template>
