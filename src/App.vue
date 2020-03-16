@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="h-full flex flex-row text-primary">
-    <Search></Search>
     <RenameGroup></RenameGroup>
+    <Search></Search>
     <SavedGroups></SavedGroups>
     <SelectedGroupSettings></SelectedGroupSettings>
   </div>

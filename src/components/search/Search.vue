@@ -1,33 +1,39 @@
 <template>
-  <div v-if="showSearch">
-    <div class="mask h-full w-full fixed flex flex-col items-center justify-center bg-darkest">
-      <div class="window h-9/10 w-4/5 bg-dark">
-        <div class="header flex">
-          <div>Search</div>
-          <button @click="hideSearch">&times;</button>
+  <div v-if="showSearch" class="search h-full w-0 flex-grow bg-dark">
+    <div class="header flex">
+      <div>Search</div>
+      <button @click="hideSearch">&times;</button>
+    </div>
+    <button @click="searchForDevices">Refresh</button>
+    <div class="wrapper flex">
+      <div class="search-list flex-grow flex flex-col">
+        <div class="item w-full cursor-pointer"
+             :class="{'item-selected': isDeviceSelected(device.id)}"
+             :key="device.id" v-for="device in this.foundDevices"
+             @click="toggleSelect(device.id)">
+          {{device.host}}
         </div>
-        <button @click="searchForDevices">Refresh</button>
-        <SearchList></SearchList>
       </div>
+      <button @click="saveNewGroup">Save selected</button>
     </div>
   </div>
 </template>
 
 <script>
   import {mapState} from 'vuex';
-  import SearchList from "./SearchList";
   import Discovery from "./discovery";
+  import {v4 as uuid} from "uuid"
 
   export default {
     name: "Search",
-    components: {SearchList},
     data() {
       return {
-        discoveryService: undefined
+        discoveryService: undefined,
+        selectedFoundDevices: []
       };
     },
     computed: {
-      ...mapState(["showSearch"])
+      ...mapState(["showSearch", "foundDevices", "savedDeviceGroups"])
     },
     methods: {
       hideSearch() {
@@ -45,7 +51,58 @@
         });
 
         this.discoveryService.search();
+      },
+      isDeviceSelected(id) {
+        return this.selectedFoundDevices.some(deviceId => {
+          return deviceId === id
+        });
+      },
+      toggleSelect(id) {
+        if (this.isDeviceSelected(id)) {
+          this.selectedFoundDevices = this.selectedFoundDevices.filter(deviceId => deviceId !== id);
+        } else {
+          this.selectedFoundDevices.push(id);
+        }
+      },
+      saveNewGroup() {
+        if (this.selectedFoundDevices.length === 0) {
+          return;
+        }
+
+        const newGroupDevices = this.foundDevices.filter(device => {
+          return this.selectedFoundDevices.some(selectedDeviceId => {
+            return selectedDeviceId === device.id;
+          })
+        });
+        this.selectedFoundDevices = [];
+
+        this.$store.commit("saveNewDeviceGroup", {
+          id: uuid(),
+          name: this.generateNewGroupName(),
+          devices: newGroupDevices
+        });
+      },
+      generateNewGroupName() {
+        let isUniqueName = false;
+        let groupNumber = 0;
+        while (!isUniqueName) {
+          groupNumber++;
+          const name = `MyGroup ${groupNumber}`;
+          const isNameTaken = this.savedDeviceGroups.some(group => {
+            return group.name === name;
+          });
+
+          if (!isNameTaken) {
+            return name;
+          }
+        }
       }
     }
   }
 </script>
+
+<style scoped>
+  .item-selected {
+    background: #f4c894;
+  }
+</style>

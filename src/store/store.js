@@ -17,8 +17,8 @@ export default new Vuex.Store({
     groupNameToRename: ""
   },
   mutations: {
-    showSearch(state) {
-      state.showSearch = true;
+    toggleSearch(state) {
+      state.showSearch = !state.showSearch;
     },
     hideSearch(state) {
       state.showSearch = false;
@@ -50,10 +50,6 @@ export default new Vuex.Store({
       state.showRenameGroup = false;
     },
     renameGroup(state, data) {
-      // state.savedDeviceGroups.find(savedDevice => {
-      //   return savedDevice.id === data.id;
-      // }).name = data.newName;
-
       state.savedDeviceGroups = state.savedDeviceGroups.map(savedDevice => {
         return savedDevice.id === data.id
             ? {...savedDevice, name: data.newName}
