@@ -11,7 +11,9 @@ module.exports = {
       },
     },
   },
-  variants: {},
+  variants: {
+    visibility: ['group-hover'],
+  },
   plugins: [
     require('./node_modules/tailwind-percentage-heights-plugin')(),
   ],
