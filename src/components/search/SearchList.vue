@@ -1,19 +1,15 @@
 <template>
-  <div class="search-list-wrapper">
-    <div class="search-list">
-      <div class="search-list-item"
-           :class="{'search-list-item-selected': isDeviceSelected(device.id)}"
+  <div class="wrapper flex">
+    <div class="search-list flex-grow flex flex-col">
+      <div class="item w-full cursor-pointer"
+           :class="{'item-selected': isDeviceSelected(device.id)}"
            :key="device.id" v-for="device in this.foundDevices"
            @click="toggleSelect(device.id)">
         {{device.host}}
       </div>
     </div>
-    <div class="add-button-wrapper">
-      <button @click="saveNewGroup">Save selected</button>
-    </div>
-    <div class="saved-groups-list-wrapper">
-      <SavedGroupsList></SavedGroupsList>
-    </div>
+    <button @click="saveNewGroup">Save selected</button>
+    <SavedGroupsList></SavedGroupsList>
   </div>
 </template>
 
@@ -85,50 +81,7 @@
 </script>
 
 <style scoped>
-  .search-list-wrapper {
-    flex-grow: 10;
-    flex-basis: 0;
-
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
-  }
-
-  .search-list {
-    flex-grow: 3;
-    flex-basis: 0;
-
-    display: flex;
-    flex-direction: column;
-  }
-
-  .search-list-item {
-    width: 100%;
-    cursor: pointer;
-  }
-
-  .search-list-item-selected {
+  .item-selected {
     background: #f4c894;
-  }
-
-  .add-button-wrapper {
-    flex-grow: 1;
-    flex-basis: 0;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .saved-groups-list-wrapper {
-    height: 100%;
-
-    flex-grow: 3;
-    flex-basis: 0;
-    overflow: hidden;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
 </style>

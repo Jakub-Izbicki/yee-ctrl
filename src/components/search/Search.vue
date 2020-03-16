@@ -2,13 +2,11 @@
   <div v-if="showSearch">
     <div class="mask h-full w-full fixed flex flex-col items-center justify-center bg-darkest">
       <div class="window h-9/10 w-4/5 bg-dark">
-        <div class="header">
+        <div class="header flex">
           <div>Search</div>
           <button @click="hideSearch">&times;</button>
         </div>
-        <div class="refresh-button-wrapper">
-          <button @click="searchForDevices">Refresh</button>
-        </div>
+        <button @click="searchForDevices">Refresh</button>
         <SearchList></SearchList>
       </div>
     </div>
@@ -51,32 +49,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .window {
-    /*width: 90%;*/
-    /*height: 90%;*/
-    /*top: 50%;*/
-    /*left: 50%;*/
-    /*transform: translate(-50%, -50%);*/
-    /*position: fixed;*/
-    /**/
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /**/
-    /*background:  rgb(82, 80, 87);*/
-  }
-
-  .header {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .refresh-button-wrapper {
-    flex-grow: 1;
-    flex-basis: 0;
-
-    display: flex;
-    flex-direction: row;
-  }
-</style>
