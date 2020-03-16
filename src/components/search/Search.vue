@@ -2,7 +2,6 @@
   <div v-if="showSearch" class="search h-full w-0 flex-grow bg-dark">
     <div class="header flex">
       <div>Search</div>
-      <button @click="hideSearch">&times;</button>
     </div>
     <button @click="searchForDevices">Refresh</button>
     <div class="wrapper flex">
@@ -36,9 +35,6 @@
       ...mapState(["showSearch", "foundDevices", "savedDeviceGroups"])
     },
     methods: {
-      hideSearch() {
-        this.$store.commit("hideSearch");
-      },
       searchForDevices() {
         if (this.discoveryService !== undefined) {
           this.discoveryService.close();

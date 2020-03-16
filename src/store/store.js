@@ -7,7 +7,6 @@ export default new Vuex.Store({
   state: {
     strict: true,
     name: "Yee-Ctrl",
-    selectedGroupId: "",
     foundDevices: [],
     savedDeviceGroups: [],
     toAddGroups: [],
@@ -19,9 +18,6 @@ export default new Vuex.Store({
   mutations: {
     toggleSearch(state) {
       state.showSearch = !state.showSearch;
-    },
-    hideSearch(state) {
-      state.showSearch = false;
     },
     addFoundDevice(state, newDevice) {
       if (state.foundDevices
