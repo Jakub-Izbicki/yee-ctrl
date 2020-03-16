@@ -17,9 +17,6 @@ export default new Vuex.Store({
     groupNameToRename: ""
   },
   mutations: {
-    selectGroup(state, id) {
-      state.selectedGroupId = id;
-    },
     showSearch(state) {
       state.showSearch = true;
     },

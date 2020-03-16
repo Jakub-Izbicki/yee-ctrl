@@ -1,7 +1,7 @@
 <template>
   <div v-if="showSearch">
-    <div class="mask">
-      <div class="window">
+    <div class="mask h-full w-full fixed flex flex-col items-center justify-center bg-darkest">
+      <div class="window h-9/10 w-4/5 bg-dark">
         <div class="header">
           <div>Search</div>
           <button @click="hideSearch">&times;</button>
@@ -53,32 +53,18 @@
 </script>
 
 <style scoped>
-  .mask {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: fixed;
-    z-index: 1;
-
-    display: flex;
-    flex-direction: column;
-
-    background: rgba(28, 28, 28, 0.77);
-  }
-
   .window {
-    width: 90%;
-    height: 90%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: fixed;
-
-    display: flex;
-    flex-direction: column;
-
-    background:  rgb(82, 80, 87);
+    /*width: 90%;*/
+    /*height: 90%;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+    /*position: fixed;*/
+    /**/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /**/
+    /*background:  rgb(82, 80, 87);*/
   }
 
   .header {

@@ -1,13 +1,17 @@
 <template>
-  <div v-if="showRenameGroup" :key="showRenameGroup">
-    <div class="mask">
-      <div class="window">
-        <div class="header">
-          <div class="m-4">Rename group?</div>
+  <div v-if="showRenameGroup" :key="groupNameToRename">
+    <div class="mask fixed h-full w-full flex items-center justify-center bg-darkest">
+      <div class="modal fixed flex flex-col bg-dark">
+        <div class="header m-4 flex flex-row justify-between">
+          <div>Rename group</div>
           <button @click="hideRenameGroup">&times;</button>
         </div>
-        <input v-model="newName"/>
-        <button @click="rename">Rename</button>
+        <div class="m-4">Please provide new name for group {{groupNameToRename}}</div>
+        <input class="m-4 bg-black"
+               v-model="newName"/>
+        <button class="m-4"
+                @click="rename">Rename
+        </button>
       </div>
     </div>
   </div>
@@ -18,19 +22,17 @@
 
   export default {
     name: "RenameGroup",
+    data() {
+      return {
+        newName: ""
+      }
+    },
     computed: {
       ...mapState(["showRenameGroup", "groupIdToRename", "groupNameToRename", "savedDeviceGroups"]),
-      newName: {
-        get() {
-          return this.groupNameToRename;
-        },
-        set(newName) {
-          return newName;
-        }
-      }
     },
     methods: {
       hideRenameGroup() {
+        this.newName = "";
         this.$store.commit("hideRenameGroup");
       },
       rename() {
@@ -38,43 +40,9 @@
           id: this.groupIdToRename,
           newName: this.newName
         });
+        this.newName = "";
         this.hideRenameGroup();
       }
     }
   }
 </script>
-
-<style scoped>
-  .mask {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: fixed;
-    z-index: 1;
-
-    display: flex;
-    flex-direction: column;
-
-    background: rgba(28, 28, 28, 0.77);
-  }
-
-  .window {
-    width: 50%;
-    height: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: fixed;
-
-    display: flex;
-    flex-direction: column;
-
-    background: rgb(82, 80, 87);
-  }
-
-  .header {
-    display: flex;
-    flex-direction: row;
-  }
-</style>

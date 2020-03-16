@@ -1,20 +1,25 @@
 <template>
-  <div class="saved-groups-list">
-    <div class="saved-group"
+  <div class="saved-groups-list h-full w-full overflow-auto bg-darker">
+    <div class="saved-group hover:bg-highlight"
          :key="group.id" v-for="group in savedDeviceGroups">
-      <div class="saved-group-title">
-        <div>
+      <div class="saved-group-title flex justify-between">
+        <div class="font-medium text-xl">
           {{group.name}}
         </div>
         <div>
-          <i class="fas fa-pencil-alt button-edit-name"
+          <i class="fas fa-pencil-alt button-edit-name text-xl"
              @click="showRenameGroup(group.id)"></i>
-          <i class="fas fa-trash-alt button-remove"
+          <i class="fas fa-trash-alt text-xl"
              @click="deleteGroup(group.id)"></i>
         </div>
       </div>
+      <div class="flex flex-row justify-between">
+        <div class="text-secondary">{{devicesAmount(group.id)}}</div>
+        <i class="fas fa-chevron-down"></i>
+      </div>
       <div>
-        <div :key="device.id" v-for="device in group.devices">
+        <div class="text-secondary"
+            :key="device.id" v-for="device in group.devices">
           {{device.host}}
         </div>
       </div>
@@ -37,33 +42,19 @@
       isSelected(id) {
         return this.selectedGroup && this.selectedGroup.id === id;
       },
-      selectGroup(ip) {
-        this.$store.commit("selectGroup", ip);
-      },
       deleteGroup(id) {
         this.$store.commit("deleteDeviceGroup", id);
       },
       showRenameGroup(id) {
         this.$store.commit("showRenameGroup", id);
+      },
+      devicesAmount(groupId) {
+        const amount = this.savedDeviceGroups.find(savedGroup => {
+          return savedGroup.id === groupId;
+        }).devices.length;
+
+        return amount === 1 ? `${amount} device` : `${amount} devices`;
       }
     }
   }
 </script>
-
-<style scoped>
-  .saved-groups-list {
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-  }
-
-  .saved-group:hover {
-    background: #656567;
-  }
-
-  .saved-group-title {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-</style>
