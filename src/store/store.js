@@ -11,9 +11,6 @@ export default new Vuex.Store({
     savedDeviceGroups: [],
     toAddGroups: [],
     showSearch: false,
-    showRenameGroup: false,
-    groupIdToRename: "",
-    groupNameToRename: ""
   },
   mutations: {
     toggleSearch(state) {
@@ -22,8 +19,6 @@ export default new Vuex.Store({
     addFoundDevice(state, newDevice) {
       if (state.foundDevices
       .find(device => device.ip === newDevice.ip) === undefined) {
-        console.log("Adding new device");
-        console.log(newDevice);
         state.foundDevices.push(newDevice);
       }
     },
@@ -34,16 +29,6 @@ export default new Vuex.Store({
       state.savedDeviceGroups = state.savedDeviceGroups.filter(group => {
         return group.id !== id;
       });
-    },
-    showRenameGroup(state, id) {
-      state.groupIdToRename = id;
-      state.groupNameToRename = state.savedDeviceGroups.find(savedGroup => {
-        return savedGroup.id === state.groupIdToRename;
-      }).name;
-      state.showRenameGroup = true;
-    },
-    hideRenameGroup(state) {
-      state.showRenameGroup = false;
     },
     renameGroup(state, data) {
       state.savedDeviceGroups = state.savedDeviceGroups.map(savedDevice => {

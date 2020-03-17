@@ -26,6 +26,7 @@ export default class Discovery extends EventEmitter {
         this.searchIterations++;
 
         if (this.searchIterations >= this.searchMaxIterations) {
+          this.emit("endOfSearch");
           clearInterval(this.searchInterval);
         }
       }, 1000);

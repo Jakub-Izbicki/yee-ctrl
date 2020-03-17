@@ -1,14 +1,25 @@
 <template>
   <div class="group hover:bg-highlight">
-    <div class="title flex justify-between">
+    <div v-if="!showRename"
+         class="title flex justify-between">
       <div class="font-medium text-lg">
         {{group.name}}
       </div>
       <div>
         <i class="button-edit-name invisible group-hover:visible fas fa-pencil-alt text-xl text-secondary"
-           @click="showRenameGroup(group.id)"></i>
+           @click="toggleRenameGroup"></i>
         <i class="button-delete-group invisible group-hover:visible fas fa-trash-alt text-xl text-secondary"
            @click="deleteGroup(group.id)"></i>
+      </div>
+    </div>
+    <div v-if="showRename"
+         class="flex justify-between">
+      <input v-model="renameValue">
+      <div>
+        <i class="button-confirm-rename fas fa-check text-xl text-secondary"
+           @click="renameGroup"></i>
+        <i class="button-exit.rename fas fa-times text-xl text-secondary"
+           @click="toggleRenameGroup"></i>
       </div>
     </div>
     <div class="flex flex-row justify-center">
@@ -39,7 +50,9 @@
     props: ["group"],
     data() {
       return {
-        showDevices: false
+        showDevices: false,
+        showRename: false,
+        renameValue: ""
       }
     },
     computed: {
@@ -49,8 +62,15 @@
       deleteGroup(id) {
         this.$store.commit("deleteDeviceGroup", id);
       },
-      showRenameGroup(id) {
-        this.$store.commit("showRenameGroup", id);
+      toggleRenameGroup() {
+        this.renameValue = this.group.name;
+        this.showRename = !this.showRename;
+      },
+      renameGroup() {
+        this.$store.commit("renameGroup", {
+          id: this.group.id, newName: this.renameValue
+        });
+        this.toggleRenameGroup();
       },
       devicesAmount(groupId) {
         const amount = this.savedDeviceGroups.find(savedGroup => {

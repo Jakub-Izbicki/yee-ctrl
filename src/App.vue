@@ -1,6 +1,5 @@
 <template>
   <div id="app" class="h-full flex flex-row text-primary">
-    <RenameGroup></RenameGroup>
     <SavedGroups></SavedGroups>
     <Search></Search>
     <SelectedGroupSettings></SelectedGroupSettings>
@@ -12,11 +11,10 @@
   import SelectedGroupSettings from "./components/selected-group-settings/SelectedGroupSettings";
   import Search from "./components/search/Search";
   import SavedGroups from "./components/saved-groups/SavedGroups";
-  import RenameGroup from "./components/saved-groups/rename-group/RenameGroup";
 
   export default {
     name: 'App',
-    components: {RenameGroup, SavedGroups, Search, SelectedGroupSettings},
+    components: {SavedGroups, Search, SelectedGroupSettings},
   }
 </script>
 
