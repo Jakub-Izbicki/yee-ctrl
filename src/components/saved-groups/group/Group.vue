@@ -4,7 +4,7 @@
        @click="selectGroup">
     <div v-if="!showRename"
          class="title flex justify-between">
-      <div class="font-medium text-lg m-1 overflow-hidden">
+      <div class="font-medium text-lg m-1 cursor-pointer hover:text-focus overflow-hidden">
         {{group.name}}
       </div>
       <div class="flex">
