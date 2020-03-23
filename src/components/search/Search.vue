@@ -1,31 +1,24 @@
 <template>
   <div v-if="showSearch"
-       class="search h-full w-0 flex-grow flex flex-col items-center bg-dark">
-    <div class="flex-grow-0 m-5 text-xl">
+       class="search h-full p-3 rounded-r flex-grow flex flex-col items-center bg-dark">
+    <div class=" m-5 text-xl">
       Search for devices
     </div>
     <div :class="{'searching': isSearching}">
-      <IconButton :icon="'fas fa-sync-alt'"
-                  :text-size="'text-3xl'"
-                  :text-color="'text-secondary'"
-                  :active-text-color="'hover:text-focus'"
-                  :padding="'p-5'"
+      <IconButton :custom-class="'fas fa-sync-alt text-3xl text-secondary hover:text-focus p-5'"
                   :click="searchForDevices"></IconButton>
     </div>
     <div class="search-list flex-grow flex flex-col overflow-auto m-4">
-      <div class="item w-full cursor-pointer"
-           :class="{'item-selected': isDeviceSelected(device.id)}"
+      <div class="item active:bg-selected p-3 m-1 rounded cursor-pointer"
+           :class="[{'bg-selected': isDeviceSelected(device.id)},
+           {'hover:bg-highlight': !isDeviceSelected(device.id)}]"
            :key="device.id" v-for="device in this.foundDevices"
            @click="toggleSelect(device.id)">
         {{device.host}}
       </div>
     </div>
-    <IconButton class="m-5"
-                :icon="'far fa-save'"
-                :text-size="'text-3xl'"
-                :text-color="'text-secondary'"
-                :active-text-color="'hover:text-focus'"
-                :padding="'p-5'"
+    <IconButton :custom-class="'far fa-save text-3xl text-secondary hover:text-focus p-5'"
+                :class="{invisible: selectedFoundDevices.length === 0}"
                 :click="saveNewGroup">
     </IconButton>
   </div>
@@ -48,10 +41,12 @@
       };
     },
     computed: {
-      ...mapState(["showSearch", "foundDevices", "savedDeviceGroups"])
+      ...mapState(["showSearch", "foundDevices", "savedDeviceGroups"]),
     },
     methods: {
       searchForDevices() {
+        this.$store.commit("removeFoundDevices");
+
         if (this.discoveryService !== undefined) {
           this.isSearching = false;
           this.discoveryService.close();

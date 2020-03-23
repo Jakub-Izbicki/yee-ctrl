@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="h-full flex flex-row text-primary">
+  <div id="app" class="h-full flex flex-row items-center text-primary p-2 bg-darkest">
     <SavedGroups></SavedGroups>
     <Search></Search>
     <SelectedGroupSettings></SelectedGroupSettings>

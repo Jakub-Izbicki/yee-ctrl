@@ -10,17 +10,22 @@ export default new Vuex.Store({
     foundDevices: [],
     savedDeviceGroups: [],
     toAddGroups: [],
-    showSearch: false,
+    showSearch: true,
+    selectedGroupId: "",
   },
   mutations: {
-    toggleSearch(state) {
-      state.showSearch = !state.showSearch;
+    showSearch(state) {
+      state.selectedGroupId = "";
+      state.showSearch = true;
     },
     addFoundDevice(state, newDevice) {
       if (state.foundDevices
       .find(device => device.ip === newDevice.ip) === undefined) {
         state.foundDevices.push(newDevice);
       }
+    },
+    removeFoundDevices(state) {
+      state.foundDevices = [];
     },
     saveNewDeviceGroup(state, newGroup) {
       state.savedDeviceGroups.push(newGroup);
@@ -36,6 +41,10 @@ export default new Vuex.Store({
             ? {...savedDevice, name: data.newName}
             : savedDevice;
       })
+    },
+    selectGroup(state, groupId) {
+      state.showSearch = false;
+      state.selectedGroupId = groupId;
     }
   }
 })

@@ -2,14 +2,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        dark: 'rgb(82,80,87)',
-        darker: 'rgb(75,72,80)',
-        darkest: 'rgba(35,32,40,0.78)',
+        dark: 'rgb(72,70,77)',
+        darker: 'rgb(53,50,58)',
+        darkest: 'rgb(41,37,47)',
         highlight: 'rgb(101,101,103)',
         selected: 'rgb(171,171,173)',
         primary: 'rgb(242,242,244)',
-        secondary: 'rgb(175,175,177)',
-        focus: 'rgb(244,200,148)'
+        secondary: 'rgb(196,196,198)',
+        focus: 'rgb(244,221,102)',
+        accent: 'rgb(127,117,105)',
+        warn: 'rgb(244,137,150)',
       },
     },
   },
