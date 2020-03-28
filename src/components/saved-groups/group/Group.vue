@@ -1,10 +1,13 @@
 <template>
-  <div class="group rounded p-1"
-       :class="[{'hover:bg-highlight': !isSelected}, {'bg-dark hover:bg-dark': isSelected}]"
+  <div v-if="isSelected || this.showState !== this.showGroupSettingsState"
+       class="group rounded-lg p-1"
+       :class="[{'hover:bg-highlight cursor-pointer': !isSelected},
+       {'bg-dark hover:bg-dark': isSelected},
+       {'h-full': isSelected && this.showState === this.showGroupSettingsState}]"
        @click="selectGroup">
     <div v-if="!showRename"
          class="title flex justify-between">
-      <div class="font-medium text-lg m-1 cursor-pointer hover:text-focus overflow-hidden">
+      <div class="font-medium text-lg m-1 overflow-hidden">
         {{group.name}}
       </div>
       <div class="flex">
@@ -53,7 +56,7 @@
     <div v-if="showDevices" class="flex flex-col items-center">
       <div class="text-secondary"
            :key="device.id" v-for="device in group.devices">
-        {{device.host}}
+        <Device :device="device"></Device>
       </div>
     </div>
     <div v-if="isSelected && this.showState === this.showGroupSettingsState">
@@ -61,7 +64,7 @@
          class="button-delete-group flex flex-col justify-center items-center align-center w-full
         transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
         transform active:scale-90 cursor-pointer rounded-full text-lg text-secondary
-        hover:text-focus p-1 fas fa-chevron-up"></i>
+        hover:text-focus mb-3 p-1 fas fa-chevron-up"></i>
       <SelectedGroupSettings></SelectedGroupSettings>
     </div>
   </div>
@@ -71,10 +74,11 @@
   import {mapState} from "vuex";
   import {mixin as clickaway} from 'vue-clickaway';
   import SelectedGroupSettings from "../../selected-group-settings/SelectedGroupSettings";
+  import Device from "../device/Device";
 
   export default {
     name: "Group",
-    components: {SelectedGroupSettings},
+    components: {Device, SelectedGroupSettings},
     props: ["group"],
     mixins: [clickaway],
     data() {

@@ -1,6 +1,6 @@
 <template>
-  <div class="search h-full w-full p-3 rounded-r flex-grow flex flex-col items-center">
-    <div class="w-full border-sold border-b border-highlight"></div>
+  <div class="search h-full w-full p-1 rounded-r flex-grow flex flex-col items-center">
+    <div class="w-full mt-2 border-sold border-b border-highlight"></div>
     <div class="w-full flex flex-col items-center">
       <div class=" m-1 text-lg">
         White
@@ -15,7 +15,7 @@
               min="1700"
               max="6500">
         </div>
-        <div class="mx-3 w-1/12">
+        <div class="mx-4 w-1/12">
           {{temperature}}k
         </div>
       </div>

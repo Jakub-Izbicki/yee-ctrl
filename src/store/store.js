@@ -37,6 +37,7 @@ export default new Vuex.Store({
       state.savedDeviceGroups = state.savedDeviceGroups.filter(group => {
         return group.id !== id;
       });
+      if (state.showState === state.showGroupSettingsState)
       state.showState = state.showGroupsListState;
     },
     renameGroup(state, data) {

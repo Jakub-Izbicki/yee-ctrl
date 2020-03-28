@@ -1,6 +1,8 @@
 <template>
   <div class="flex-grow-0 w-full h-full p-3 bg-darker rounded-l flex flex-col items-center">
-    <div class="list h-full w-full mt-2 overflow-auto">
+    <div class="list flex-grow-1 w-full mt-2 overflow-auto"
+         :class="[{'h-full': showState === showGroupsListState || showState === showGroupSettingsState},
+         {'h-1/2': showState === showSearchState}]">
       <div v-if="savedDeviceGroups.length === 0"
            class="h-full w-full flex flex-col justify-center items-center">
         <div>There are no saved device groups,</div>
@@ -14,7 +16,7 @@
                 :custom-class="'fas fa-plus text-3xl text-secondary hover:text-focus m-3 p-1'"
                 :click="showSearchWindow"></IconButton>
     <div v-if="showState === showSearchState"
-         class="flex-grow-1 w-full">
+         class="h-1/2 w-full">
       <Search></Search>
     </div>
   </div>
@@ -31,7 +33,7 @@
     components: {Search, IconButton, Group},
     computed: {
       ...mapState(["savedDeviceGroups", "selectedGroupId", "showState", "showGroupsListState",
-        "showSearchState"])
+        "showSearchState", "showGroupSettingsState"])
     },
     methods: {
       showSearchWindow() {

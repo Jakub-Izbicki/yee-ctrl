@@ -1,6 +1,5 @@
 <template>
-  <div
-      class="w-full flex flex-row content-around">
+  <div class="w-full flex flex-row content-around rounded-lg">
     <div class="flex-grow w-full flex items-center justify-center hover:bg-highlight rounded
          transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
          transform active:scale-95 cursor-pointer text-lg text-secondary

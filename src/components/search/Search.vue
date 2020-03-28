@@ -1,23 +1,23 @@
 <template>
   <div v-if="showSearch"
        class="search h-full w-full p-3 rounded-lg flex-grow flex flex-col items-center bg-dark">
-    <div class=" m-5 text-xl">
+    <div class=" m-1 text-xl">
       Search for devices
     </div>
     <div :class="{'searching': isSearching}">
-      <IconButton :custom-class="'fas fa-sync-alt text-3xl text-secondary hover:text-focus p-5'"
+      <IconButton :custom-class="'fas fa-sync-alt text-3xl text-secondary hover:text-focus p-2'"
                   :click="searchForDevices"></IconButton>
     </div>
-    <div class="search-list flex-grow flex flex-col overflow-auto m-4">
-      <div class="item active:bg-selected p-3 m-1 rounded cursor-pointer"
+    <div class="search-list group flex-grow flex flex-col overflow-auto m-4">
+      <div class="item active:bg-selected m-1 rounded cursor-pointer"
            :class="[{'bg-selected': isDeviceSelected(device.id)},
            {'hover:bg-highlight': !isDeviceSelected(device.id)}]"
            :key="device.id" v-for="device in this.foundDevices"
            @click="toggleSelect(device.id)">
-        {{device.host}}
+        <Device :device="device"></Device>
       </div>
     </div>
-    <IconButton :custom-class="'far fa-save text-3xl text-secondary hover:text-focus p-5'"
+    <IconButton :custom-class="'far fa-save text-3xl text-secondary hover:text-focus p-2'"
                 :class="{invisible: selectedFoundDevices.length === 0}"
                 :click="saveNewGroup">
     </IconButton>
@@ -29,10 +29,11 @@
   import Discovery from "./discovery";
   import {v4 as uuid} from "uuid"
   import IconButton from "../icon-button/IconButton";
+  import Device from "../saved-groups/device/Device";
 
   export default {
     name: "Search",
-    components: {IconButton},
+    components: {Device, IconButton},
     data() {
       return {
         isSearching: false,
@@ -42,6 +43,12 @@
     },
     mounted() {
       this.searchForDevices();
+    },
+    beforeDestroy() {
+      if (this.discoveryService !== undefined) {
+        this.isSearching = false;
+        this.discoveryService.close();
+      }
     },
     computed: {
       ...mapState(["foundDevices", "savedDeviceGroups", "showState", "showSearchState"]),
