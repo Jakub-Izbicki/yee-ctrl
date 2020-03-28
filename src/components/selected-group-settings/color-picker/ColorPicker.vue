@@ -1,58 +1,51 @@
 <template>
-  <div class="search h-full p-3 rounded-r flex-grow flex flex-col items-center">
+  <div class="search h-full w-full p-3 rounded-r flex-grow flex flex-col items-center">
+    <div class="w-full border-sold border-b border-highlight"></div>
     <div class="w-full flex flex-col items-center">
-      <div class=" m-5 text-xl">
+      <div class=" m-1 text-lg">
         White
       </div>
       <div class="w-full flex flex-row justify-around">
-        <div class="m-2 w-3/12 flex justify-center">
+        <div class="flex-grow">
+          <input
+              v-model="temperature"
+              @click="printWhite"
+              class="w-full cursor-pointer"
+              type="range"
+              min="1700"
+              max="6500">
+        </div>
+        <div class="mx-3 w-1/12">
+          {{temperature}}k
+        </div>
+      </div>
+    </div>
+    <div class="w-full mt-4 border-sold border-b border-highlight"></div>
+    <div class="w-full flex-grow flex flex-col items-center">
+      <div class=" m-1 text-lg">
+        Color
+      </div>
+      <div class="w-full flex flex-row items-center justify-around">
+        <canvas class="rgb-gradient w-full rounded-lg cursor-pointer border-2 border-solid border-primary"></canvas>
+      </div>
+    </div>
+    <div class="w-full mt-4 border-sold border-b border-highlight"></div>
+    <div class="w-full flex-grow flex flex-col items-center">
+      <div class="w-full flex flex-row justify-around mt-6">
+        <div class="m-1 w-3/12 flex justify-center items-center">
           Brightness
         </div>
         <div class="m-2 flex-grow">
           <input
               v-model="brightness"
-              class="w-full"
+              @change="printWhite"
+              class="w-full cursor-pointer"
               type="range"
               min="0"
               max="100">
         </div>
-        <div class="m-2 w-1/12">
+        <div class="m-1 w-1/12 flex justify-center items-center">
           {{brightness}}%
-        </div>
-      </div>
-      <div class="w-full flex flex-row justify-around">
-        <div class="m-2 w-3/12 flex justify-center">
-          Temperature
-        </div>
-        <div class="m-2 flex-grow">
-          <input
-              v-model="temperature"
-              class="w-full"
-              type="range"
-              min="1700"
-              max="6500">
-        </div>
-        <div class="m-2 w-1/12">
-          {{temperature}}k
-        </div>
-      </div>
-    </div>
-    <div class="w-full flex flex-col items-center">
-      <div class=" m-5 text-xl">
-        Color
-      </div>
-      <div class="w-full flex flex-row justify-around">
-        <div class="m-2 w-3/12 flex justify-center">
-          Brightness
-        </div>
-        <div class="m-2 flex-grow">
-          <input
-              v-model="aa"
-              class="w-full"
-              type="color">
-        </div>
-        <div class="m-2 w-1/12">
-          {{aa}}
         </div>
       </div>
     </div>
@@ -65,8 +58,7 @@
     data() {
       return {
         brightness: 50,
-        temperature: 3000,
-        aa: 122
+        temperature: 3000
       }
     },
     methods: {
@@ -78,5 +70,12 @@
 </script>
 
 <style scoped>
+  .rgb-gradient {
+    /*padding-top: 25%;*/
+    background: radial-gradient(white, rgba(255, 255, 255, 0) 50%), conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+  }
 
+  .rgb-selection {
+    background: #3ce6ff;
+  }
 </style>

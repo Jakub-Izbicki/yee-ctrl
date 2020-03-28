@@ -1,6 +1,6 @@
 <template>
   <div v-if="showSearch"
-       class="search h-full p-3 rounded-r flex-grow flex flex-col items-center bg-dark">
+       class="search h-full w-full p-3 rounded-lg flex-grow flex flex-col items-center bg-dark">
     <div class=" m-5 text-xl">
       Search for devices
     </div>
@@ -40,8 +40,14 @@
         selectedFoundDevices: []
       };
     },
+    mounted() {
+      this.searchForDevices();
+    },
     computed: {
-      ...mapState(["showSearch", "foundDevices", "savedDeviceGroups"]),
+      ...mapState(["foundDevices", "savedDeviceGroups", "showState", "showSearchState"]),
+      showSearch() {
+        return this.showState === this.showSearchState;
+      }
     },
     methods: {
       searchForDevices() {
@@ -99,7 +105,7 @@
         let groupNumber = 0;
         while (!isUniqueName) {
           groupNumber++;
-          const name = `MyGroup ${groupNumber}`;
+          const name = `New Group ${groupNumber}`;
           const isNameTaken = this.savedDeviceGroups.some(group => {
             return group.name === name;
           });

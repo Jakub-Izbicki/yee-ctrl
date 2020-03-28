@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!showSearch" class="h-full rounded-r flex-grow flex flex-row items-center overflow-hidden bg-dark">
+  <div class="h-full rounded flex-grow flex flex-col items-center overflow-hidden">
     <SettingsTabs></SettingsTabs>
     <ColorPicker></ColorPicker>
   </div>

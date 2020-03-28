@@ -10,13 +10,16 @@ export default new Vuex.Store({
     foundDevices: [],
     savedDeviceGroups: [],
     toAddGroups: [],
-    showSearch: true,
     selectedGroupId: "",
+    showState: "SAVED_GROUPS",
+    showGroupsListState: "SAVED_GROUPS",
+    showSearchState: "SEARCH",
+    showGroupSettingsState: "GROUP_SETTINGS"
   },
   mutations: {
     showSearch(state) {
       state.selectedGroupId = "";
-      state.showSearch = true;
+      state.showState = state.showSearchState;
     },
     addFoundDevice(state, newDevice) {
       if (state.foundDevices
@@ -34,6 +37,7 @@ export default new Vuex.Store({
       state.savedDeviceGroups = state.savedDeviceGroups.filter(group => {
         return group.id !== id;
       });
+      state.showState = state.showGroupsListState;
     },
     renameGroup(state, data) {
       state.savedDeviceGroups = state.savedDeviceGroups.map(savedDevice => {
@@ -43,8 +47,11 @@ export default new Vuex.Store({
       })
     },
     selectGroup(state, groupId) {
-      state.showSearch = false;
+      state.showState = state.showGroupSettingsState;
       state.selectedGroupId = groupId;
-    }
+    },
+    deselectGroup(state) {
+      state.showState = state.showGroupsListState;
+    },
   }
 })

@@ -1,22 +1,23 @@
 <template>
-  <div class="h-full w-1/12 flex flex-col items-center justify-around border-solid border-r border-highlight">
+  <div
+      class="w-full flex flex-row content-around">
     <div class="flex-grow w-full flex items-center justify-center hover:bg-highlight rounded
          transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
          transform active:scale-95 cursor-pointer text-lg text-secondary
-         hover:text-focus p-2">
-      <i class="fas fa-paint-brush text-2xl"></i>
+         hover:text-focus p-1">
+      <i class="fas fa-paint-brush text-xl"></i>
     </div>
     <div class="flex-grow w-full flex items-center justify-center hover:bg-highlight rounded
          transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
          transform active:scale-95 cursor-pointer text-lg text-secondary
-         hover:text-focus p-2">
-      <i class="far fa-clock text-2xl"></i>
+         hover:text-focus p-1">
+      <i class="far fa-clock text-xl"></i>
     </div>
     <div class="flex-grow w-full flex items-center justify-center hover:bg-highlight rounded
          transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
          transform active:scale-95 cursor-pointer text-lg text-secondary
-         hover:text-focus p-2">
-      <i class="fas fa-tasks text-2xl"></i>
+         hover:text-focus p-1">
+      <i class="fas fa-tasks text-xl"></i>
     </div>
   </div>
 </template>
@@ -28,5 +29,4 @@
 </script>
 
 <style scoped>
-
 </style>
