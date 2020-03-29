@@ -2,7 +2,7 @@
   <div v-if="isSelected || this.showState !== this.showGroupSettingsState"
        class="group rounded-lg p-1"
        :class="[{'hover:bg-highlight cursor-pointer': !isSelected},
-       {'bg-dark hover:bg-dark': isSelected},
+       {'bg-darker hover:bg-darker': isSelected},
        {'h-full': isSelected && this.showState === this.showGroupSettingsState}]"
        @click="selectGroup">
     <div v-if="!showRename"
