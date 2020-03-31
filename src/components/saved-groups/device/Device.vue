@@ -6,7 +6,11 @@
 
     <div v-if="showConnectionOk"
          class="mx-2 font-semibold text-lg text-ok">
-      OK
+      Ok
+    </div>
+    <div v-if="showConnectionErr"
+         class="mx-2 font-semibold text-lg text-warn">
+      Error
     </div>
     <i v-if="isConnecting"
        class="fas fa-spinner connecting text-lg text-secondary p-1 mx-2"></i>
@@ -30,7 +34,8 @@
         connection: undefined,
         showConnectButton: true,
         isConnecting: false,
-        showConnectionOk: false
+        showConnectionOk: false,
+        showConnectionErr: false
       }
     },
     beforeDestroy() {
@@ -44,18 +49,25 @@
           this.connection = new Device({host: this.device.host, port: this.device.port});
         }
 
-        this.connection.on("response", (response) => {
-          console.log(response);
-        });
-
+        let timeoutConnectionOk;
         const connectingEndOk = () => {
           this.isConnecting = false;
           this.showConnectionOk = true;
-          setTimeout(() => {
+          timeoutConnectionOk = setTimeout(() => {
             this.showConnectionOk = false;
             this.showConnectButton = true;
           }, 2000);
         };
+
+        this.connection.on("timeout", () => {
+          clearTimeout(timeoutConnectionOk);
+          this.isConnecting = false;
+          this.showConnectionErr = true;
+          setTimeout(() => {
+            this.showConnectionErr = false;
+            this.showConnectButton = true;
+          }, 2000);
+        });
 
         this.isConnecting = true;
         this.showConnectButton = false;

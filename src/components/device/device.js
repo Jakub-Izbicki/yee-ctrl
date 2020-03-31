@@ -86,16 +86,6 @@ export default class Device extends EventEmitter {
       clearInterval(this.timer);
       this.timer = null;
     }
-    this.timer = setInterval(this.sendHeartBeat.bind(this),
-        this.polligInterval);
-  }
-
-  sendHeartBeat() {
-    this.sendCommand({
-      id: 199,
-      method: "get_prop",
-      params: this.tracked_attrs,
-    });
   }
 
   onResponse(data) {
@@ -107,6 +97,7 @@ export default class Device extends EventEmitter {
       try {
         const response = JSON.parse(dataString);
         this.emit("response", response);
+
         this.removeTimeout(response.id);
         this.runCallback(response);
       } catch (err) {
@@ -116,8 +107,15 @@ export default class Device extends EventEmitter {
   }
 
   removeTimeout(id) {
-    this.timeoutConnections = this.timeoutConnections.filter((conn) => {
-      return conn !== id;
+    if (this.timeoutConnections.some((timeout) => {
+      return timeout.id === id;
+    })) {
+      clearTimeout(this.timeoutConnections.filter((timeout) => {
+        return timeout.id === id;
+      })[0].timeout);
+    }
+    this.timeoutConnections = this.timeoutConnections.filter((timeout) => {
+      return timeout.id !== id;
     })
   }
 
@@ -167,7 +165,7 @@ export default class Device extends EventEmitter {
 
   sendCommand(data, callback) {
     const id = this.generateRequestId();
-    this.timeoutConnections.push(id);
+    this.addToTimeoutQueue(id);
     this.addCallbackToQueue(id, callback);
 
     const call = () => {
@@ -191,9 +189,8 @@ export default class Device extends EventEmitter {
 
   generateRequestId() {
     let id = 1;
-
-    while (this.timeoutConnections.some((connId) => {
-      return connId === id;
+    while (this.timeoutConnections.some((timeout) => {
+      return timeout.id === id;
     })) {
       id++;
     }
@@ -201,9 +198,16 @@ export default class Device extends EventEmitter {
     return id;
   }
 
+  addToTimeoutQueue(id) {
+    const timeout = setTimeout(() => {
+      this.removeTimeout(id);
+      this.emit("timeout", id);
+    }, 5000);
+    this.timeoutConnections.push({id, timeout});
+  }
+
   addCallbackToQueue(id, callback) {
     if (callback !== undefined) {
-      console.log("Adding to callback");
       this.callbackConnections.push({id, callback});
     }
   }
