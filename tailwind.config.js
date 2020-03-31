@@ -11,6 +11,7 @@ module.exports = {
         secondary: 'rgb(196,196,198)',
         focus: 'rgb(244,221,102)',
         accent: 'rgb(127,117,105)',
+        ok: 'rgb(135,244,152)',
         warn: 'rgb(244,137,150)',
       },
     },
