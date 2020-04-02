@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow-0 w-full h-full p-3 bg-darker rounded-l flex flex-col items-center">
+  <div class="flex-grow-0 w-full h-full p-3 bg-darker rounded-l flex flex-col items-center overflow-hidden">
     <div class="list flex-grow-1 w-full mt-2 overflow-auto"
          :class="[{'h-full': showState === showGroupsListState || showState === showGroupSettingsState},
          {'h-1/2': showState === showSearchState}]">
@@ -15,10 +15,12 @@
     <IconButton v-if="showState === showGroupsListState"
                 :custom-class="'fas fa-plus text-3xl text-secondary hover:text-focus m-3 p-1'"
                 :click="showSearchWindow"></IconButton>
-    <div v-if="showState === showSearchState"
-         class="h-1/2 w-full">
-      <Search></Search>
-    </div>
+    <transition name="search">
+      <div v-if="showState === showSearchState"
+           class="h-1/2 w-full">
+        <Search></Search>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -42,3 +44,14 @@
     }
   }
 </script>
+
+<style scoped>
+  .search-enter, .search-leave-to {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  .search-enter-active, .search-leave-active {
+    transition: all .1s;
+  }
+</style>
