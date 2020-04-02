@@ -1,25 +1,26 @@
 <template>
   <div class="flex">
-    <div>
+    <div class="ml-2 flex flex-col items-center">
       {{device.host}}
     </div>
-
-    <div v-if="showConnectionOk"
-         class="mx-2 font-semibold text-lg text-ok">
-      Ok
-    </div>
-    <div v-if="showConnectionErr"
-         class="mx-2 font-semibold text-lg text-warn">
-      Error
-    </div>
-    <i v-if="isConnecting"
-       class="fas fa-spinner connecting text-lg text-secondary p-1 mx-2"></i>
-    <i v-if="showConnectButton"
-       class="button-edit-name fas fa-satellite-dish
+    <div class="flex w-10 flex-col items-center">
+      <div v-if="showConnectionOk"
+           class="mx-1 font-semibold text-ok">
+        Ok
+      </div>
+      <div v-if="showConnectionErr"
+           class="mx-1 font-semibold text-warn">
+        Error
+      </div>
+      <i v-if="isConnecting"
+         class="fas fa-spinner connecting text-secondary p-1 mx-1"></i>
+      <i v-if="showConnectButton"
+         class="button-edit-name fas fa-satellite-dish
         transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
-        transform active:scale-90 cursor-pointer rounded-full text-lg text-secondary
-        hover:text-focus p-1 mx-2"
-       @click.stop="testConnection"></i>
+        transform active:scale-90 cursor-pointer rounded-full text-secondary
+        hover:text-focus p-1 mx-1"
+         @click.stop="testConnection"></i>
+    </div>
   </div>
 </template>
 

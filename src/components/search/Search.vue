@@ -1,14 +1,14 @@
 <template>
   <div v-if="showSearch"
        class="search h-full w-full p-3 rounded-lg flex-grow flex flex-col items-center bg-dark">
-    <div class=" m-1 text-xl">
+    <div class="m-1 text-xl">
       Search for devices
     </div>
     <div :class="{'searching': isSearching}">
       <IconButton :custom-class="'fas fa-sync-alt text-3xl text-secondary hover:text-focus p-2'"
                   :click="searchForDevices"></IconButton>
     </div>
-    <div class="search-list group flex-grow flex flex-col overflow-auto m-4">
+    <div class="search-list group flex-grow flex flex-col items-between overflow-auto m-4">
       <div class="item active:bg-selected m-1 rounded cursor-pointer"
            :class="[{'bg-selected': isDeviceSelected(device.id)},
            {'hover:bg-highlight': !isDeviceSelected(device.id)}]"

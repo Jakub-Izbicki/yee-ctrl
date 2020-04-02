@@ -1,67 +1,69 @@
 <template>
   <div v-if="isSelected || this.showState !== this.showGroupSettingsState"
-       class="group rounded-lg p-1"
+       class="rounded-lg p-1"
        :class="[{'hover:bg-highlight cursor-pointer': !isSelected},
        {'bg-darker hover:bg-darker': isSelected},
        {'h-full': isSelected && this.showState === this.showGroupSettingsState}]"
        @click="selectGroup">
-    <div v-if="!showRename"
-         class="title flex justify-between">
-      <div class="font-medium text-lg m-1 overflow-hidden">
-        {{group.name}}
-      </div>
-      <div class="flex">
-        <i class="button-edit-name invisible group-hover:visible fas fa-pencil-alt
+    <div class="group">
+      <div v-if="!showRename"
+           class="title flex justify-between">
+        <div class="font-medium text-lg m-1 overflow-hidden">
+          {{group.name}}
+        </div>
+        <div class="flex">
+          <i class="button-edit-name invisible group-hover:visible fas fa-pencil-alt
         transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
         transform active:scale-90 cursor-pointer rounded-full text-lg text-secondary
         hover:text-focus p-2"
-           @click.stop="showRenameGroup"></i>
-        <i class="button-delete-group invisible group-hover:visible fas fa-trash-alt
+             @click.stop="showRenameGroup"></i>
+          <i class="button-delete-group invisible group-hover:visible fas fa-trash-alt
         transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
         transform active:scale-90 cursor-pointer rounded-full text-lg text-secondary
         hover:text-warn p-2"
-           @click.stop="deleteGroup"></i>
+             @click.stop="deleteGroup"></i>
+        </div>
       </div>
-    </div>
-    <form v-if="showRename"
-          v-on-clickaway="hideRenameGroup"
-          class="flex flex-row justify-between">
-      <input v-model="renameValue"
-             ref="renameInput"
-             class="font-medium w-2/3 text-darker text-lg m-1 pl-1 overflow-hidden rounded">
-      <div class="w-1/3 flex">
-        <input type="submit" class="hidden" @click.stop="renameGroup">
-        <i class="button-confirm-rename invisible group-hover:visible fas fa-check
+      <form v-if="showRename"
+            v-on-clickaway="hideRenameGroup"
+            class="flex justify-between">
+        <input v-model="renameValue"
+               ref="renameInput"
+               class="font-medium w-2/3 text-darker text-lg m-1 pl-1 overflow-hidden rounded">
+        <div class="flex">
+          <input type="submit" class="hidden" @click.stop="renameGroup">
+          <i class="button-confirm-rename fas fa-check
         transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
         transform active:scale-90 cursor-pointer rounded-full text-lg text-secondary
         hover:text-focus p-2"
-           @click.stop="renameGroup"></i>
-        <i class="button-exit-rename invisible group-hover:visible fas fa-times
+             @click.stop="renameGroup"></i>
+          <i class="button-exit-rename fas fa-times
         transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
         transform active:scale-90 cursor-pointer rounded-full text-lg text-secondary
         hover:text-warn p-2"
-           @click.stop="hideRenameGroup"></i>
-      </div>
-    </form>
-    <div class="flex flex-row justify-center">
-      <div class="text-secondary px-2">{{devicesAmount(group.id)}}</div>
-      <i class="button-delete-group invisible group-hover:visible
+             @click.stop="hideRenameGroup"></i>
+        </div>
+      </form>
+      <div class="flex flex-row justify-center">
+        <div class="text-secondary px-2">{{devicesAmount(group.id)}}</div>
+        <i class="button-delete-group invisible group-hover:visible
         transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
         transform active:scale-90 cursor-pointer rounded-full text-lg text-secondary
         hover:text-focus p-1"
-         :class="[{'fas fa-chevron-down': !this.showDevices},
+           :class="[{'fas fa-chevron-down': !this.showDevices},
          {'fas fa-chevron-up': this.showDevices}]"
-         @click.stop="toggleExpandDevices"></i>
-    </div>
-    <div v-if="showDevices" class="flex flex-col items-center">
-      <div class="text-secondary"
-           :key="device.id" v-for="device in group.devices">
-        <Device :device="device"></Device>
+           @click.stop="toggleExpandDevices"></i>
+      </div>
+      <div v-if="showDevices" class="flex flex-col items-center">
+        <div class="text-secondary"
+             :key="device.id" v-for="device in group.devices">
+          <Device :device="device"></Device>
+        </div>
       </div>
     </div>
     <div v-if="isSelected && this.showState === this.showGroupSettingsState">
       <i @click.stop="deselectGroup"
-         class="button-delete-group flex flex-col justify-center items-center align-center w-full
+         class="button-deselect-group flex flex-col justify-center items-center align-center w-full
         transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
         transform active:scale-90 cursor-pointer rounded-full text-lg text-secondary
         hover:text-focus mb-3 p-1 fas fa-chevron-up"></i>
