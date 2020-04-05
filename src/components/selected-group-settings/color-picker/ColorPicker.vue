@@ -1,6 +1,6 @@
 <template>
   <div class="search h-full w-full p-1 rounded-r flex-grow flex flex-col items-center">
-    <div class="w-full mt-2 border-sold border-b border-highlight"></div>
+    <div class="w-full mt-2 border-sold border-b border-secondary"></div>
     <div class="w-full flex flex-col items-center">
       <div class=" m-1 text-lg">
         White
@@ -20,16 +20,16 @@
         </div>
       </div>
     </div>
-    <div class="w-full mt-4 border-sold border-b border-highlight"></div>
+    <div class="w-full mt-4 border-sold border-b border-secondary"></div>
     <div class="w-full flex-grow flex flex-col items-center">
       <div class=" m-1 text-lg">
         Color
       </div>
       <div class="w-full flex flex-row items-center justify-around">
-        <canvas class="rgb-gradient w-full rounded-lg cursor-pointer border-2 border-solid border-primary"></canvas>
+        <canvas class="rgb-gradient w-full h-1/2 rounded-full cursor-pointer border-2 border-solid border-focus"></canvas>
       </div>
     </div>
-    <div class="w-full mt-4 border-sold border-b border-highlight"></div>
+    <div class="w-full mt-4 border-sold border-b border-secondary"></div>
     <div class="w-full flex-grow flex flex-col items-center">
       <div class="w-full flex flex-row justify-around mt-6">
         <div class="m-1 w-3/12 flex justify-center items-center">
@@ -71,11 +71,6 @@
 
 <style scoped>
   .rgb-gradient {
-    /*padding-top: 25%;*/
     background: radial-gradient(white, rgba(255, 255, 255, 0) 50%), conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
-  }
-
-  .rgb-selection {
-    background: #3ce6ff;
   }
 </style>
