@@ -1,9 +1,8 @@
 <template>
-  <div v-if="isSelected || this.showState !== this.showGroupSettingsState"
-       class="rounded-lg p-1"
+  <div class="rounded-lg p-1"
        :class="[{'hover:bg-highlight cursor-pointer': !isSelected},
        {'bg-backgroundSecondary hover:bg-backgroundSecondary': isSelected},
-       {'h-full': isSelected && this.showState === this.showGroupSettingsState}]"
+       {'h-full': isSelected}]"
        @click="selectGroup">
     <div class="group">
       <div v-if="!showRename"
@@ -61,14 +60,16 @@
         </div>
       </div>
     </div>
-    <div v-if="isSelected && this.showState === this.showGroupSettingsState">
-      <i @click.stop="deselectGroup"
-         class="button-deselect-group flex flex-col justify-center items-center align-center w-full
+    <transition name="settings">
+      <div v-if="isSelected">
+        <i @click.stop="deselectGroup"
+           class="button-deselect-group flex flex-col justify-center items-center align-center w-full
         transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
         transform active:scale-90 cursor-pointer rounded-full text-lg text-secondary
         hover:text-focus mb-3 p-1 fas fa-chevron-up"></i>
-      <SelectedGroupSettings></SelectedGroupSettings>
-    </div>
+        <SelectedGroupSettings></SelectedGroupSettings>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -91,10 +92,9 @@
       }
     },
     computed: {
-      ...mapState(["savedDeviceGroups", "selectedGroupId", "showState", "showGroupSettingsState"]),
+      ...mapState(["savedDeviceGroups", "selectedGroup", "showState", "showGroupSettingsState"]),
       isSelected() {
-        return this.selectedGroupId === this.group.id &&
-            this.showState === this.showGroupSettingsState;
+        return this.selectedGroup != null && this.selectedGroup.id === this.group.id;
       }
     },
     methods: {
@@ -129,7 +129,7 @@
         this.showDevices = !this.showDevices;
       },
       selectGroup() {
-        this.$store.commit("selectGroup", this.group.id);
+        this.$store.commit("selectGroup", this.group);
       },
       deselectGroup() {
         this.$store.commit("deselectGroup");
@@ -139,5 +139,4 @@
 </script>
 
 <style scoped>
-
 </style>

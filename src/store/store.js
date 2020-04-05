@@ -10,15 +10,26 @@ export default new Vuex.Store({
     foundDevices: [],
     savedDeviceGroups: [],
     toAddGroups: [],
-    selectedGroupId: "",
+    selectedGroup: null,
     showState: "SAVED_GROUPS",
     showGroupsListState: "SAVED_GROUPS",
     showSearchState: "SEARCH",
     showGroupSettingsState: "GROUP_SETTINGS"
   },
+  getters: {
+    savedDeviceGroups(state) {
+      if (state.savedDeviceGroups.length === 0) {
+        return [];
+      }
+
+      return state.savedDeviceGroups.sort((first, second) => {
+        return first.name.localeCompare(second.name);
+      })
+    }
+  },
   mutations: {
     showSearch(state) {
-      state.selectedGroupId = "";
+      state.selectedGroup = null;
       state.showState = state.showSearchState;
     },
     addFoundDevice(state, newDevice) {
@@ -37,8 +48,10 @@ export default new Vuex.Store({
       state.savedDeviceGroups = state.savedDeviceGroups.filter(group => {
         return group.id !== id;
       });
-      if (state.showState === state.showGroupSettingsState)
-      state.showState = state.showGroupsListState;
+      if (state.showState === state.showGroupSettingsState) {
+        state.selectedGroup = null;
+        state.showState = state.showGroupsListState;
+      }
     },
     renameGroup(state, data) {
       state.savedDeviceGroups = state.savedDeviceGroups.map(savedDevice => {
@@ -47,11 +60,12 @@ export default new Vuex.Store({
             : savedDevice;
       })
     },
-    selectGroup(state, groupId) {
+    selectGroup(state, group) {
       state.showState = state.showGroupSettingsState;
-      state.selectedGroupId = groupId;
+      state.selectedGroup = group;
     },
     deselectGroup(state) {
+      state.selectedGroup = null;
       state.showState = state.showGroupsListState;
     },
   }
