@@ -2,7 +2,7 @@
   <div v-if="isSelected || this.showState !== this.showGroupSettingsState"
        class="rounded-lg p-1"
        :class="[{'hover:bg-highlight cursor-pointer': !isSelected},
-       {'bg-darker hover:bg-darker': isSelected},
+       {'bg-backgroundSecondary hover:bg-backgroundSecondary': isSelected},
        {'h-full': isSelected && this.showState === this.showGroupSettingsState}]"
        @click="selectGroup">
     <div class="group">
@@ -29,7 +29,7 @@
             class="flex justify-between">
         <input v-model="renameValue"
                ref="renameInput"
-               class="font-medium w-2/3 text-darker text-lg m-1 pl-1 overflow-hidden rounded">
+               class="font-medium w-2/3 text-primary text-lg m-1 pl-1 overflow-hidden rounded-full">
         <div class="flex">
           <input type="submit" class="hidden" @click.stop="renameGroup">
           <i class="button-confirm-rename fas fa-check

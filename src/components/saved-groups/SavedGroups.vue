@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow-0 w-full h-full p-3 bg-darker rounded-l flex flex-col items-center overflow-hidden">
+  <div class="flex-grow-0 w-full h-full p-3 bg-backgroundSecondary rounded-lg flex flex-col items-center overflow-hidden">
     <div class="list flex-grow-1 w-full mt-2 overflow-auto"
          :class="[{'h-full': showState === showGroupsListState || showState === showGroupSettingsState},
          {'h-1/2': showState === showSearchState}]">
@@ -13,7 +13,7 @@
       </Group>
     </div>
     <IconButton v-if="showState === showGroupsListState"
-                :custom-class="'fas fa-plus text-3xl text-secondary hover:text-focus m-3 p-1'"
+                :custom-class="'fas fa-plus text-2xl text-secondary hover:text-focus p-3'"
                 :click="showSearchWindow"></IconButton>
     <transition name="search">
       <div v-if="showState === showSearchState"

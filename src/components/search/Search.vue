@@ -1,5 +1,5 @@
 <template>
-  <div class="search h-full w-full p-3 rounded-lg flex-grow flex flex-col items-center bg-dark">
+  <div class="search h-full w-full p-3 rounded-lg flex-grow flex flex-col items-center bg-background">
     <div class="m-1 text-xl">
       Search for devices
     </div>
