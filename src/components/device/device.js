@@ -160,13 +160,23 @@ export default class Device extends EventEmitter {
           method: "set_power",
           params: [state, "smooth", 300]
         },
-        callback)
+        callback);
+  }
+
+  setBrightness(percentageInt, callback) {
+    this.sendCommand({
+          method: "set_bright",
+          params: [percentageInt, "smooth", 300]
+        },
+        callback);
   }
 
   sendCommand(data, callback) {
     const id = this.generateRequestId();
     this.addToTimeoutQueue(id);
     this.addCallbackToQueue(id, callback);
+
+    console.log({request: JSON.stringify({id: id, ...data})});
 
     const call = () => {
       const cmd = JSON.stringify({id: id, ...data});

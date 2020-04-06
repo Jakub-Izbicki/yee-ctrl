@@ -9,7 +9,6 @@
         <div class="flex-grow">
           <input
               v-model="temperature"
-              @click="printWhite"
               class="w-full cursor-pointer"
               type="range"
               min="1700"
@@ -31,14 +30,14 @@
     </div>
     <div class="w-full mt-4 border-sold border-b border-secondary"></div>
     <div class="w-full flex-grow flex flex-col items-center">
-      <div class="w-full flex flex-row justify-around mt-6">
-        <div class="m-1 w-3/12 flex justify-center items-center">
-          Brightness
-        </div>
-        <div class="m-2 flex-grow">
+      <div class="m-1 text-lg flex justify-center items-center">
+        Brightness
+      </div>
+      <div class="w-full flex flex-row justify-around">
+        <div class="mr-2 flex-grow">
           <input
-              v-model="brightness"
-              @change="printWhite"
+              v-model.number="brightness"
+              @change="setBrightness"
               class="w-full cursor-pointer"
               type="range"
               min="0"
@@ -53,17 +52,41 @@
 </template>
 
 <script>
+  import Device from "../../device/device";
+  import {mapState} from "vuex";
+
   export default {
     name: "ColorPicker",
     data() {
       return {
         brightness: 50,
-        temperature: 3000
+        temperature: 3000,
+        devices: [],
+      }
+    },
+    computed: {
+      ...mapState(["selectedGroup"]),
+    },
+    beforeDestroy() {
+      if (this.devices.length === 0) {
+        this.devices.forEach(device => {
+          device.disconnect();
+        })
       }
     },
     methods: {
-      printWhite() {
-        console.log(`${this.brightness}% - ${this.temperature}k`);
+      setBrightness() {
+        if (this.devices.length === 0) {
+          this.selectedGroup.devices.forEach(device => {
+            this.devices.push(new Device({host: device.host, port: device.port}));
+          })
+        }
+
+        this.devices.forEach(device => {
+          device.setBrightness(this.brightness, response => {
+            console.log({response});
+          });
+        })
       }
     }
   }
