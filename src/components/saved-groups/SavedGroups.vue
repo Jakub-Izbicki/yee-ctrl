@@ -30,7 +30,9 @@
           </div>
         </transition>
       </div>
-      <div v-else
+    </transition>
+    <transition name="group-settings">
+      <div v-if="selectedGroup != null"
            key="selectedGroup"
            class="flex-grow-0 w-full h-full p-3 flex flex-col items-center overflow-hidden">
         <Group :group="selectedGroup"></Group>
@@ -65,11 +67,35 @@
 <style scoped>
   .selecting-group-enter, .selecting-group-leave-to {
     opacity: 0;
-    transform: translateX(200px);
+    transform: translateX(-300px);
   }
 
   .selecting-group-enter-active, .selecting-group-leave-active {
-    transition: all 0.2s;
+    transition: all 0.1s;
+  }
+
+  .group-settings-enter, .group-settings-leave-to {
+    transform: translateX(300px);
+  }
+
+  .group-settings-enter-active {
+    animation: group-settingss 0.2s;
+  }
+
+  .group-settings-leave-active {
+    animation: group-settingss 0.2s reverse;
+  }
+
+  @keyframes group-settingss {
+    0% {
+      transform: translateX(300px);
+    }
+    50% {
+      transform: translateX(300px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
   }
 
   .groups-move {

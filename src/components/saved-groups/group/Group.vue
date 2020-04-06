@@ -4,6 +4,13 @@
        {'bg-backgroundSecondary hover:bg-backgroundSecondary': isSelected},
        {'h-full': isSelected}]"
        @click="selectGroup">
+    <div v-if="isSelected">
+      <i @click.stop="deselectGroup"
+         class="button-deselect-group flex flex-col justify-center items-center align-center w-full
+        transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
+        transform active:scale-90 cursor-pointer rounded-full text-lg text-secondary
+        hover:text-focus p-1 fas fa-chevron-left"></i>
+    </div>
     <div class="group">
       <div v-if="!showRename"
            class="title flex justify-between">
@@ -60,16 +67,10 @@
         </div>
       </div>
     </div>
-    <transition name="settings">
-      <div v-if="isSelected">
-        <i @click.stop="deselectGroup"
-           class="button-deselect-group flex flex-col justify-center items-center align-center w-full
-        transition-transform duration-75 ease-in-out hover:bg-highlight active:bg-selected
-        transform active:scale-90 cursor-pointer rounded-full text-lg text-secondary
-        hover:text-focus mb-3 p-1 fas fa-chevron-up"></i>
-        <SelectedGroupSettings></SelectedGroupSettings>
-      </div>
-    </transition>
+    <div v-if="isSelected"
+    class="mt-3">
+      <SelectedGroupSettings></SelectedGroupSettings>
+    </div>
   </div>
 </template>
 
