@@ -173,6 +173,14 @@ export default class Device extends EventEmitter {
         callback);
   }
 
+  setWhite(tempInt, callback) {
+    this.sendCommand({
+          method: "set_ct_abx",
+          params: [tempInt, "smooth", 300]
+        },
+        callback);
+  }
+
   sendCommand(data, callback) {
     const id = this.generateRequestId();
     this.addToTimeoutQueue(id);

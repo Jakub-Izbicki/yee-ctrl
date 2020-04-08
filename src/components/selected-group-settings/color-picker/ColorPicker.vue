@@ -8,7 +8,8 @@
       <div class="w-full flex flex-row justify-around">
         <div class="flex-grow">
           <input
-              v-model="temperature"
+              v-model.number="temperature"
+              @change="setWhite"
               class="w-full cursor-pointer"
               type="range"
               min="1700"
@@ -75,16 +76,24 @@
       }
     },
     methods: {
-      setBrightness() {
+      setupConnections() {
         if (this.devices.length === 0) {
           this.selectedGroup.devices.forEach(device => {
             this.devices.push(new Device({host: device.host, port: device.port}));
           })
         }
-
+      },
+      setBrightness() {
+        this.setupConnections();
         this.devices.forEach(device => {
-          device.setBrightness(this.brightness, response => {
-            console.log({response});
+          device.setBrightness(this.brightness);
+        })
+      },
+      setWhite() {
+        this.setupConnections();
+        this.devices.forEach(device => {
+          device.setWhite(this.temperature, (resp) => {
+            console.log(resp);
           });
         })
       }
