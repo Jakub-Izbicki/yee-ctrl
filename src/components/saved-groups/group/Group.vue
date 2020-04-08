@@ -68,7 +68,7 @@
       </div>
     </div>
     <div v-if="isSelected"
-    class="mt-3">
+         class="mt-3">
       <SelectedGroupSettings></SelectedGroupSettings>
     </div>
   </div>
@@ -83,7 +83,7 @@
   export default {
     name: "Group",
     components: {Device, SelectedGroupSettings},
-    props: ["group"],
+    props: ["groupId"],
     mixins: [clickaway],
     data() {
       return {
@@ -94,6 +94,11 @@
     },
     computed: {
       ...mapState(["savedDeviceGroups", "selectedGroup", "showState", "showGroupSettingsState"]),
+      group() {
+        return this.savedDeviceGroups.find((group) => {
+          return group.id === this.groupId;
+        })
+      },
       isSelected() {
         return this.selectedGroup != null && this.selectedGroup.id === this.group.id;
       }

@@ -15,7 +15,7 @@
           <transition-group name="groups">
             <Group :key="group.id"
                    v-for="group in savedDeviceGroups"
-                   :group="group"
+                   :groupId="group.id"
                    class="groups-item">
             </Group>
           </transition-group>
@@ -35,7 +35,7 @@
       <div v-if="selectedGroup != null"
            key="selectedGroup"
            class="flex-grow-0 w-full h-full p-3 flex flex-col items-center overflow-hidden">
-        <Group :group="selectedGroup"></Group>
+        <Group :groupId="selectedGroup.id"></Group>
       </div>
     </transition>
   </div>
