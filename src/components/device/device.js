@@ -64,6 +64,8 @@ export default class Device extends EventEmitter {
   }
 
   socketClosed(err) {
+    this.connected = false;
+
     if (this.forceDisconnect) {
       return;
     }

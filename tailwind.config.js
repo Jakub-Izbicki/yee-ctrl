@@ -2,11 +2,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: 'rgb(113,153,188)',
+        background: 'rgb(122,163,188)',
         backgroundSecondary: 'rgb(239,232,244)',
         backgroundThird: 'rgb(255,255,255)',
         highlight: 'rgb(168,183,198)',
-        selected: 'rgb(88,127,162)',
+        selected: 'rgb(140,189,218)',
         primary: 'rgb(0,0,0)',
         secondary: 'rgb(95,95,97)',
         focus: 'rgb(113,153,188)',
