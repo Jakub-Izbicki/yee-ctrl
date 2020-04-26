@@ -105,7 +105,12 @@
     },
     methods: {
       deleteGroup() {
+        const name = this.group.name;
         this.$store.commit("deleteDeviceGroup", this.group.id);
+        this.$store.dispatch('toast/createToast', {
+          text: `'${name}' removed`,
+          time: 2000,
+        })
       },
       showRenameGroup() {
         this.renameValue = this.group.name;
