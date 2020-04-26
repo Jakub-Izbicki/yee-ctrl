@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full bg-backgroundSecondary rounded-lg overflow-hidden">
+  <div class="w-full h-full m-2 bg-backgroundSecondary rounded-lg overflow-hidden">
     <transition name="selecting-group" mode="out-in">
       <div v-if="selectedGroup == null"
            key="savedGroups"
@@ -15,8 +15,7 @@
           <transition-group name="groups">
             <Group :key="group.id"
                    v-for="group in savedDeviceGroups"
-                   :groupId="group.id"
-                   class="groups-item">
+                   :groupId="group.id">
             </Group>
           </transition-group>
         </div>

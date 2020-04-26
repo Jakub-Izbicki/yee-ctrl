@@ -1,5 +1,6 @@
 <template>
-  <div class="search h-full w-full p-3 rounded-lg flex-grow flex flex-col items-center bg-background">
+  <div
+      class="search h-full w-full p-3 rounded-lg flex-grow flex flex-col items-center bg-background">
     <div class="m-1 text-xl">
       Search for devices
     </div>
@@ -102,6 +103,11 @@
           name: this.generateNewGroupName(),
           devices: newGroupDevices
         });
+
+        this.$store.dispatch('toast/createToast', {
+          text: 'New group created',
+          time: 2000,
+        })
       },
       generateNewGroupName() {
         let isUniqueName = false;
@@ -123,10 +129,6 @@
 </script>
 
 <style scoped>
-  .item-selected {
-    background: #f4c894;
-  }
-
   .searching {
     pointer-events: none;
     animation: spin 0.5s linear infinite;

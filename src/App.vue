@@ -1,16 +1,18 @@
 <template>
-  <div id="app" class="h-full flex flex-row items-center text-primary p-2 bg-backgroundThird">
+  <div id="app" class="h-full flex flex-row items-center text-primary bg-backgroundThird">
     <SavedGroups></SavedGroups>
+    <ToastContainer></ToastContainer>
   </div>
 </template>
 
 <script>
   import "./assets/css/main.css"
   import SavedGroups from "./components/saved-groups/SavedGroups";
+  import ToastContainer from "./components/toast/ToastContainer";
 
   export default {
     name: 'App',
-    components: {SavedGroups},
+    components: {ToastContainer, SavedGroups},
   }
 </script>
 
